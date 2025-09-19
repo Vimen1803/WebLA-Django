@@ -220,6 +220,17 @@ WebLA
 
 ---
 
+## Tecnologías Utilizadas
+
+* Backend: Django
+*Frontend: HTML5, CSS3, JavaScript
+* Base de Datos: JSON (sustituible por MySQL3)
+* APIs: Integración con APIs externas:
+  * [Brawl Stars API oficial](https://developer.brawlstars.com/#)
+  * [API Brawl Stars no oficial](https://api.rnt.dev/docs)
+
+---
+
 ## Instalación
 
 ```bash
