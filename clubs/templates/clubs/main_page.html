@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LA Spain - Home</title>
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/1234206824125124610/VVfVRa2r_400x400.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* --- Reset y body --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: hidden; /* Scroll global si es necesario */
+    }
+
+    /* --- Lluvia --- */
+    .rain {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .drop {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.4);
+      width: 1px; height: 10px;
+      animation: fall linear infinite;
+      opacity: 0;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100%); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* --- Header --- */
+    header {
+      background-color: #1c2b3a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 20px;
+      z-index: 100;
+    }
+    .header-center { display: flex; align-items: center; gap: 10px; }
+    .header-center img { width: 40px; height: 40px; }
+    .header-center span { font-size: 2rem; font-weight: bolder; }
+
+    /* --- Main --- */
+    .main-container {
+      flex: 1;
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-container, .links-container, .right-panel {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* --- Formularios --- */
+    .form-container form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .form-container label {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+    .form-container input {
+      padding: 20px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 1.1rem;
+    }
+    .form-container button {
+      padding: 25px;
+      border: none;
+      border-radius: 6px;
+      background: #1c2b3a;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-container button:hover { background: rgba(255,255,255,0.2); }
+
+    /* --- Botones redes sociales --- */
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 55px;
+      margin-top: auto;
+    }
+    .social-buttons a img {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s;
+    }
+    .social-buttons a:hover img {
+      transform: scale(1.2);
+    }
+
+    /* --- Links secundarios --- */
+    .links-container {
+      justify-content: center;
+      gap: 20px;
+    }
+    .links-container a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      text-align: center;
+      border-radius: 6px;
+      padding: 30px;
+      font-size: 1rem;
+      background-color: #1c2b3a;
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    .links-container a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    /* --- Panel derecho --- */
+    .right-panel {
+      flex: 2;
+      cursor: default;
+      max-height: 90vh; /* altura máxima */
+      overflow-y: auto; /* scroll si supera la altura */
+      padding-right: 10px;
+    }
+    .right-panel h2 {
+      text-align: center;
+      margin-top: 0; margin-bottom: 20px;
+      background: linear-gradient(to right, #ffbe0b, #fb5607, #ff006e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+    }
+    .right-panel p { margin-bottom: 15px; }
+
+    /* --- Scroll y ajustes para portátiles hasta 1496px --- */
+    @media (max-width: 1496px) {
+      .right-panel {
+        max-height: 86vh;
+        overflow-y: auto;
+      }
+
+      .right-panel::-webkit-scrollbar {
+        width: 12px;
+      }
+      .right-panel::-webkit-scrollbar-track {
+        background: #1a202c;
+      }
+      .right-panel::-webkit-scrollbar-thumb {
+        background-color: #4a5568; /* gris oscuro para thumb */
+        border: 3px solid #1a202c;
+      }
+      .right-panel {
+        scrollbar-width: thin;
+        scrollbar-color: #4a5568 #1a202c;
+      }
+      
+      .form-container input {
+        padding: 10px;
+        font-size: 1rem;
+      }
+      .form-container button {
+        padding: 10px;
+        font-size: 1rem;
+      }
+
+      /* Botones de links del mismo tamaño que los botones del form */
+      .links-container a {
+        padding: 15px;
+        font-size: 1rem;
+      }
+
+      .links-container {
+      gap: 10px !important;
+      }
+    }
+
+    /* --- Responsive para móviles --- */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .left-panel, .right-panel {
+        flex: unset;
+        width: 100%;
+      }
+
+      .right-panel {
+        max-height: 70vh; /* altura máxima */
+        overflow-y: auto; /* scroll si supera la altura */
+      }
+
+      body {
+        overflow-y: auto; /* scroll global */
+      }
+
+      /* Formularios más compactos */
+      .form-container input {
+        padding: 6px;
+        font-size: 0.85rem;
+      }
+      .form-container button {
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+
+      /* Botones de links del mismo tamaño que los botones del form */
+      .links-container a {
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+
+      .links-container {
+      gap: 10px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rain"></div>
+
+  <header>
+    <div class="header-center">
+      <img src="https://images-ext-1.discordapp.net/external/pdpNjlPivAbwCC28y5bG3Q2wFkhL9JStm1JbgkeUBVw/https/cdn.discordapp.com/icons/724202847822151680/ee9681b46db567f2723516d0f42dced8.png?format=webp&quality=lossless&width=160&height=160" alt="LA Spain Logo" />
+      <span>LA Spain</span>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Panel izquierdo -->
+    <div class="left-panel">
+      <div class="form-container">
+        <form onsubmit="goToProfile(event)">
+          <label for="profile-tag">Profile</label>
+          <input type="text" id="profile-tag" placeholder="Tag">
+          <button type="submit">Cargar Perfil</button>
+        </form>
+        <form onsubmit="goToClub(event)">
+          <label for="club-tag">Club</label>
+          <input type="text" id="club-tag" placeholder="Tag">
+          <button type="submit">Cargar Club</button>
+        </form>
+
+        <!-- Redes sociales -->
+        <div class="social-buttons">
+          <a href="https://discord.gg/HA6qRz59rM" target="_blank" aria-label="Discord">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png" alt="Discord" />
+          </a>
+          <a href="https://twitter.com/LASpain_" target="_blank" aria-label="Twitter">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter" />
+          </a>
+          <a href="https://tiktok.com/@LASpain_" target="_blank" aria-label="TikTok">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok.png" alt="TikTok" />
+          </a>
+        </div>
+      </div>
+      <div class="links-container">
+        <a href="/clubs/">LA Clubs</a>
+        <a href="/tops/">LA Top Players</a>
+        <a href="/admin/">Administración</a>
+      </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="right-panel" id="text-container">
+      <h2>LA Historia</h2>
+      <p>        LA Spain es la rama española de la organización principal "LA Gaming" (Legendary Alliance Gaming). LA Gaming fue y es una enorme comunidad de juegos, con el popular eslogan "por jugadores, para jugadores" que se refiere a la organización amigable y social en la que se ha convertido, no solo es familiar, sino que también es competitiva. LA Gaming alcanzó grandes finales, como un segundo puesto en la Gems League Europe en 2020, y un Top 32 en la Clash Royale League en 2019. Sin mencionar que el Campeón Mundial de la CRL en 2022 y 2024, "Mohamed Light", jugó para LA Gaming entre 2020 y 2021.</p>
+      <p>        LA Spain (anteriormente conocida como Mystic Spain, que surgió gracias a la fusión de S7VEN y Sanctum) es una comunidad española de Brawl Stars nacida el 4 de mayo de 2019. Comenzó con 4 clubes (Spain, Gods, Legends, Stars) y rápidamente se hizo popular entre los jugadores españoles, alcanzando el puesto número 1 a nivel local en solo unos días. El 29 de mayo de 2019, la comunidad LA Spain se fusionó con sus principales rivales "x6tence". Lo que se esperaba que fuera un gran movimiento resultó ser un movimiento de promesas rotas y falsas.</p>
+      <p>        El 13 de julio de 2019, se produjo el paso de Mystic a Legendary Alliance (LA), lo que devolvió a la parte española a la familia original junto con Mystic Gaming (la parte inglesa). Así nació LA Spain. Solo dos semanas después del cambio, el 27 de julio de 2019, LA Spain alcanzó el puesto número 1 en la clasificación global y se impuso a clubes y organizaciones como Codemagic, Nova y Tribe.</p>
+      <p>        Después de eso, la organización LA Spain siguió creciendo y creciendo. La familia Exenze (una organización española más pequeña pero significativa) se unió a la familia y añadió aún más clubes. La organización también celebró torneos de Brawl Stars cada dos semanas gracias a una asociación con Bluestacks, así como una Liga LA con los mejores jugadores de cada club cada fin de semana.</p>
+      <p>        Avanzando rápidamente al 5 de marzo de 2020, la organización DeRucula se unió a LA Spain, expandiendo la familia hacia América del Sur con clubes de todos los países de LATAM. LA Spain extendió la organización a otros juegos como Clash Royale, CoD Mobile, Pokémon Unite y League of Legends, y aunque estos tuvieron éxito, ninguno alcanzó el nivel de su contraparte de Brawl Stars. Nuestra asociación con Game.tv y Bluestacks finalizó en 2023, ya que ambas partes ya no estaban interesadas.</p>
+      <p>        La última organización en unirse a LA Spain fue "Gladius Legion", añadiendo tres nuevos clubes a la cima de las clasificaciones españolas. A día de hoy, LA Spain sigue siendo la organización española más grande dentro de Brawl Stars, con 20 clubes, todos dentro de la clasificación española y muchos de ellos dentro de la global.</p>
+    </div>
+  </div>
+
+  <script>
+    // --- Lluvia optimizada ---
+    const rainContainer = document.querySelector('.rain');
+    const maxDrops = 100;
+    function createDrop() {
+      if (rainContainer.children.length >= maxDrops) return;
+      const drop = document.createElement('div');
+      drop.classList.add('drop');
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = Math.random() * 2 + 3 + 's';
+      drop.style.opacity = Math.random() * 0.5 + 0.1;
+      rainContainer.appendChild(drop);
+      drop.addEventListener('animationend', () => drop.remove());
+    }
+    setInterval(createDrop, 100);
+
+    // --- Formularios ---
+    function goToProfile(e) {
+      e.preventDefault();
+      const tag = document.getElementById('profile-tag').value.trim();
+      if (tag) window.location.href = `/member/${encodeURIComponent(tag)}`;
+    }
+    function goToClub(e) {
+      e.preventDefault();
+      const tag = document.getElementById('club-tag').value.trim();
+      if (tag) window.location.href = `/clubs/${encodeURIComponent(tag)}`;
+    }
+  </script>
+
+</body>
+</html>

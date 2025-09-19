@@ -1,0 +1,878 @@
+{
+    "tag": "8QP2229U",
+    "name": "+58 | Towins",
+    "name_color": "#E39434",
+    "trophies": 96632,
+    "highest_trophies": 104706,
+    "brawler_count": 94,
+    "sd_wins": 5598,
+    "victories_3v3": 76428,
+    "icon_id": 28000689,
+    "club_tag": "2UGP9PPLV",
+    "club_name": "LA Spain",
+    "club_rol": "Miembro",
+    "club_icon": 8000027,
+    "ranked_actual_pts": 750,
+    "ranked_actual_liga": 58000004,
+    "ranked_record_pts": 6800,
+    "ranked_record_liga": 58000015,
+    "records_pts": 29800,
+    "records_liga": 6,
+    "max_winstreak": 26,
+    "winstreak_brawler": 16000034,
+    "brawlers": [
+        {
+            "brawler_id": 16000001,
+            "skin_equipped": 29001120,
+            "trophies": 1302,
+            "highest_trophies": 1507,
+            "highest_season_tropies": 1326,
+            "power_level": 11,
+            "mastery": 114098
+        },
+        {
+            "brawler_id": 16000007,
+            "skin_equipped": 29000123,
+            "trophies": 1210,
+            "highest_trophies": 1406,
+            "highest_season_tropies": 1210,
+            "power_level": 11,
+            "mastery": 53170
+        },
+        {
+            "brawler_id": 16000030,
+            "skin_equipped": 29000657,
+            "trophies": 1207,
+            "highest_trophies": 1380,
+            "highest_season_tropies": 1207,
+            "power_level": 11,
+            "mastery": 43742
+        },
+        {
+            "brawler_id": 16000049,
+            "skin_equipped": 29000824,
+            "trophies": 1206,
+            "highest_trophies": 1608,
+            "highest_season_tropies": 1206,
+            "power_level": 11,
+            "mastery": 53271
+        },
+        {
+            "brawler_id": 16000050,
+            "skin_equipped": 29000679,
+            "trophies": 1203,
+            "highest_trophies": 1307,
+            "highest_season_tropies": 1203,
+            "power_level": 11,
+            "mastery": 54788
+        },
+        {
+            "brawler_id": 16000002,
+            "skin_equipped": 29001230,
+            "trophies": 1200,
+            "highest_trophies": 1530,
+            "highest_season_tropies": 1208,
+            "power_level": 11,
+            "mastery": 16961
+        },
+        {
+            "brawler_id": 16000076,
+            "skin_equipped": 29000948,
+            "trophies": 1200,
+            "highest_trophies": 1327,
+            "highest_season_tropies": 1200,
+            "power_level": 11,
+            "mastery": 11248
+        },
+        {
+            "brawler_id": 16000081,
+            "skin_equipped": 29000874,
+            "trophies": 1200,
+            "highest_trophies": 1329,
+            "highest_season_tropies": 1200,
+            "power_level": 11,
+            "mastery": 30862
+        },
+        {
+            "brawler_id": 16000070,
+            "skin_equipped": 29000694,
+            "trophies": 1199,
+            "highest_trophies": 1408,
+            "highest_season_tropies": 1218,
+            "power_level": 11,
+            "mastery": 31825
+        },
+        {
+            "brawler_id": 16000058,
+            "skin_equipped": 29001214,
+            "trophies": 1174,
+            "highest_trophies": 1404,
+            "highest_season_tropies": 1190,
+            "power_level": 11,
+            "mastery": 14601
+        },
+        {
+            "brawler_id": 16000063,
+            "skin_equipped": 29000609,
+            "trophies": 1158,
+            "highest_trophies": 1227,
+            "highest_season_tropies": 1158,
+            "power_level": 11,
+            "mastery": 26710
+        },
+        {
+            "brawler_id": 16000043,
+            "skin_equipped": 29001012,
+            "trophies": 1139,
+            "highest_trophies": 1235,
+            "highest_season_tropies": 1155,
+            "power_level": 11,
+            "mastery": 24020
+        },
+        {
+            "brawler_id": 16000065,
+            "skin_equipped": 29000608,
+            "trophies": 1133,
+            "highest_trophies": 1310,
+            "highest_season_tropies": 1167,
+            "power_level": 11,
+            "mastery": 10915
+        },
+        {
+            "brawler_id": 16000003,
+            "skin_equipped": 29000840,
+            "trophies": 1127,
+            "highest_trophies": 1407,
+            "highest_season_tropies": 1154,
+            "power_level": 11,
+            "mastery": 67353
+        },
+        {
+            "brawler_id": 16000029,
+            "skin_equipped": 29000828,
+            "trophies": 1088,
+            "highest_trophies": 1610,
+            "highest_season_tropies": 1107,
+            "power_level": 11,
+            "mastery": 69027
+        },
+        {
+            "brawler_id": 16000086,
+            "skin_equipped": 29001023,
+            "trophies": 1087,
+            "highest_trophies": 1090,
+            "highest_season_tropies": 1090,
+            "power_level": 11,
+            "mastery": 6432
+        },
+        {
+            "brawler_id": 16000027,
+            "skin_equipped": 29001226,
+            "trophies": 1079,
+            "highest_trophies": 1201,
+            "highest_season_tropies": 1091,
+            "power_level": 11,
+            "mastery": 31590
+        },
+        {
+            "brawler_id": 16000004,
+            "skin_equipped": 29000468,
+            "trophies": 1077,
+            "highest_trophies": 1382,
+            "highest_season_tropies": 1093,
+            "power_level": 11,
+            "mastery": 77937
+        },
+        {
+            "brawler_id": 16000009,
+            "skin_equipped": 29001088,
+            "trophies": 1074,
+            "highest_trophies": 1213,
+            "highest_season_tropies": 1074,
+            "power_level": 11,
+            "mastery": 110531
+        },
+        {
+            "brawler_id": 16000071,
+            "skin_equipped": 29000693,
+            "trophies": 1055,
+            "highest_trophies": 1214,
+            "highest_season_tropies": 1055,
+            "power_level": 11,
+            "mastery": 28664
+        },
+        {
+            "brawler_id": 16000019,
+            "skin_equipped": 29000274,
+            "trophies": 1054,
+            "highest_trophies": 1214,
+            "highest_season_tropies": 1078,
+            "power_level": 11,
+            "mastery": 26561
+        },
+        {
+            "brawler_id": 16000015,
+            "skin_equipped": 29000743,
+            "trophies": 1050,
+            "highest_trophies": 1401,
+            "highest_season_tropies": 1050,
+            "power_level": 11,
+            "mastery": 45393
+        },
+        {
+            "brawler_id": 16000073,
+            "skin_equipped": 29001097,
+            "trophies": 1042,
+            "highest_trophies": 1277,
+            "highest_season_tropies": 1050,
+            "power_level": 11,
+            "mastery": 82289
+        },
+        {
+            "brawler_id": 16000038,
+            "skin_equipped": 29001079,
+            "trophies": 1030,
+            "highest_trophies": 1411,
+            "highest_season_tropies": 1042,
+            "power_level": 11,
+            "mastery": 38615
+        },
+        {
+            "brawler_id": 16000091,
+            "skin_equipped": 29001141,
+            "trophies": 1029,
+            "highest_trophies": 1657,
+            "highest_season_tropies": 1041,
+            "power_level": 11,
+            "mastery": 58693
+        },
+        {
+            "brawler_id": 16000036,
+            "skin_equipped": 29000949,
+            "trophies": 1026,
+            "highest_trophies": 1308,
+            "highest_season_tropies": 1038,
+            "power_level": 11,
+            "mastery": 58161
+        },
+        {
+            "brawler_id": 16000066,
+            "skin_equipped": 29000636,
+            "trophies": 1021,
+            "highest_trophies": 1404,
+            "highest_season_tropies": 1021,
+            "power_level": 11,
+            "mastery": 12679
+        },
+        {
+            "brawler_id": 16000078,
+            "skin_equipped": 29000773,
+            "trophies": 1014,
+            "highest_trophies": 1234,
+            "highest_season_tropies": 1016,
+            "power_level": 11,
+            "mastery": 29079
+        },
+        {
+            "brawler_id": 16000012,
+            "skin_equipped": 29001067,
+            "trophies": 1012,
+            "highest_trophies": 1277,
+            "highest_season_tropies": 1021,
+            "power_level": 11,
+            "mastery": 53413
+        },
+        {
+            "brawler_id": 16000017,
+            "skin_equipped": 29000032,
+            "trophies": 1001,
+            "highest_trophies": 1396,
+            "highest_season_tropies": 1025,
+            "power_level": 11,
+            "mastery": 50247
+        },
+        {
+            "brawler_id": 16000000,
+            "skin_equipped": 29000844,
+            "trophies": 1000,
+            "highest_trophies": 1210,
+            "highest_season_tropies": 1008,
+            "power_level": 11,
+            "mastery": 47767
+        },
+        {
+            "brawler_id": 16000005,
+            "skin_equipped": 29000208,
+            "trophies": 1000,
+            "highest_trophies": 1321,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 50180
+        },
+        {
+            "brawler_id": 16000006,
+            "skin_equipped": 29000356,
+            "trophies": 1000,
+            "highest_trophies": 1163,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 35247
+        },
+        {
+            "brawler_id": 16000008,
+            "skin_equipped": 29000015,
+            "trophies": 1000,
+            "highest_trophies": 1303,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 30463
+        },
+        {
+            "brawler_id": 16000010,
+            "skin_equipped": 29000007,
+            "trophies": 1000,
+            "highest_trophies": 1407,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 41615
+        },
+        {
+            "brawler_id": 16000014,
+            "skin_equipped": 29000216,
+            "trophies": 1000,
+            "highest_trophies": 1290,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 41271
+        },
+        {
+            "brawler_id": 16000016,
+            "skin_equipped": 29000556,
+            "trophies": 1000,
+            "highest_trophies": 1095,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 9002
+        },
+        {
+            "brawler_id": 16000018,
+            "skin_equipped": 29000034,
+            "trophies": 1000,
+            "highest_trophies": 1165,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 29541
+        },
+        {
+            "brawler_id": 16000020,
+            "skin_equipped": 29000896,
+            "trophies": 1000,
+            "highest_trophies": 1202,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 34966
+        },
+        {
+            "brawler_id": 16000021,
+            "skin_equipped": 29000067,
+            "trophies": 1000,
+            "highest_trophies": 1069,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 13490
+        },
+        {
+            "brawler_id": 16000022,
+            "skin_equipped": 29000243,
+            "trophies": 1000,
+            "highest_trophies": 1408,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 34471
+        },
+        {
+            "brawler_id": 16000023,
+            "skin_equipped": 29001313,
+            "trophies": 1000,
+            "highest_trophies": 1109,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 24349
+        },
+        {
+            "brawler_id": 16000024,
+            "skin_equipped": 29000077,
+            "trophies": 1000,
+            "highest_trophies": 1050,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 9998
+        },
+        {
+            "brawler_id": 16000025,
+            "skin_equipped": 29001096,
+            "trophies": 1000,
+            "highest_trophies": 1162,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 31367
+        },
+        {
+            "brawler_id": 16000026,
+            "skin_equipped": 29000682,
+            "trophies": 1000,
+            "highest_trophies": 1127,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 27781
+        },
+        {
+            "brawler_id": 16000028,
+            "skin_equipped": 29000113,
+            "trophies": 1000,
+            "highest_trophies": 1123,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 10456
+        },
+        {
+            "brawler_id": 16000031,
+            "skin_equipped": 29000473,
+            "trophies": 1000,
+            "highest_trophies": 1136,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 9742
+        },
+        {
+            "brawler_id": 16000032,
+            "skin_equipped": 29000998,
+            "trophies": 1000,
+            "highest_trophies": 1128,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 18809
+        },
+        {
+            "brawler_id": 16000034,
+            "skin_equipped": 29000440,
+            "trophies": 1000,
+            "highest_trophies": 1745,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 49512
+        },
+        {
+            "brawler_id": 16000035,
+            "skin_equipped": 29000155,
+            "trophies": 1000,
+            "highest_trophies": 1362,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 35330
+        },
+        {
+            "brawler_id": 16000037,
+            "skin_equipped": 29000378,
+            "trophies": 1000,
+            "highest_trophies": 1107,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 10786
+        },
+        {
+            "brawler_id": 16000040,
+            "skin_equipped": 29001220,
+            "trophies": 1000,
+            "highest_trophies": 1210,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 20317
+        },
+        {
+            "brawler_id": 16000041,
+            "skin_equipped": 29000231,
+            "trophies": 1000,
+            "highest_trophies": 1107,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 22230
+        },
+        {
+            "brawler_id": 16000042,
+            "skin_equipped": 29000845,
+            "trophies": 1000,
+            "highest_trophies": 1130,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 18165
+        },
+        {
+            "brawler_id": 16000044,
+            "skin_equipped": 29000261,
+            "trophies": 1000,
+            "highest_trophies": 1410,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 29035
+        },
+        {
+            "brawler_id": 16000045,
+            "skin_equipped": 29001314,
+            "trophies": 1000,
+            "highest_trophies": 1191,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 16693
+        },
+        {
+            "brawler_id": 16000046,
+            "skin_equipped": 29000539,
+            "trophies": 1000,
+            "highest_trophies": 1407,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 38355
+        },
+        {
+            "brawler_id": 16000047,
+            "skin_equipped": 29001107,
+            "trophies": 1000,
+            "highest_trophies": 1055,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 16067
+        },
+        {
+            "brawler_id": 16000048,
+            "skin_equipped": 29000587,
+            "trophies": 1000,
+            "highest_trophies": 1227,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 18264
+        },
+        {
+            "brawler_id": 16000051,
+            "skin_equipped": 29000603,
+            "trophies": 1000,
+            "highest_trophies": 1115,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 25529
+        },
+        {
+            "brawler_id": 16000052,
+            "skin_equipped": 29001227,
+            "trophies": 1000,
+            "highest_trophies": 1209,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 15654
+        },
+        {
+            "brawler_id": 16000053,
+            "skin_equipped": 29000726,
+            "trophies": 1000,
+            "highest_trophies": 1055,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 12225
+        },
+        {
+            "brawler_id": 16000054,
+            "skin_equipped": 29001229,
+            "trophies": 1000,
+            "highest_trophies": 1151,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 36979
+        },
+        {
+            "brawler_id": 16000056,
+            "skin_equipped": 29000460,
+            "trophies": 1000,
+            "highest_trophies": 1063,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 7047
+        },
+        {
+            "brawler_id": 16000057,
+            "skin_equipped": 29000690,
+            "trophies": 1000,
+            "highest_trophies": 1297,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 17931
+        },
+        {
+            "brawler_id": 16000059,
+            "skin_equipped": 29001007,
+            "trophies": 1000,
+            "highest_trophies": 1122,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 14422
+        },
+        {
+            "brawler_id": 16000061,
+            "skin_equipped": 29001231,
+            "trophies": 1000,
+            "highest_trophies": 1054,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 5658
+        },
+        {
+            "brawler_id": 16000062,
+            "skin_equipped": 29001225,
+            "trophies": 1000,
+            "highest_trophies": 1220,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 11307
+        },
+        {
+            "brawler_id": 16000064,
+            "skin_equipped": 29001160,
+            "trophies": 1000,
+            "highest_trophies": 1094,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 20144
+        },
+        {
+            "brawler_id": 16000067,
+            "skin_equipped": 29000629,
+            "trophies": 1000,
+            "highest_trophies": 1010,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 13609
+        },
+        {
+            "brawler_id": 16000068,
+            "skin_equipped": 29000675,
+            "trophies": 1000,
+            "highest_trophies": 1211,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 35164
+        },
+        {
+            "brawler_id": 16000069,
+            "skin_equipped": 29001276,
+            "trophies": 1000,
+            "highest_trophies": 1295,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 13308
+        },
+        {
+            "brawler_id": 16000072,
+            "skin_equipped": 29000944,
+            "trophies": 1000,
+            "highest_trophies": 1208,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 30638
+        },
+        {
+            "brawler_id": 16000074,
+            "skin_equipped": 29000732,
+            "trophies": 1000,
+            "highest_trophies": 1109,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 13875
+        },
+        {
+            "brawler_id": 16000075,
+            "skin_equipped": 29001168,
+            "trophies": 1000,
+            "highest_trophies": 1341,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 11796
+        },
+        {
+            "brawler_id": 16000077,
+            "skin_equipped": 29000819,
+            "trophies": 1000,
+            "highest_trophies": 1071,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 11364
+        },
+        {
+            "brawler_id": 16000079,
+            "skin_equipped": 29001162,
+            "trophies": 1000,
+            "highest_trophies": 1272,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 33785
+        },
+        {
+            "brawler_id": 16000080,
+            "skin_equipped": 29000871,
+            "trophies": 1000,
+            "highest_trophies": 1052,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 10227
+        },
+        {
+            "brawler_id": 16000082,
+            "skin_equipped": 29001059,
+            "trophies": 1000,
+            "highest_trophies": 1300,
+            "highest_season_tropies": 1019,
+            "power_level": 11,
+            "mastery": 40294
+        },
+        {
+            "brawler_id": 16000083,
+            "skin_equipped": 29001167,
+            "trophies": 1000,
+            "highest_trophies": 1408,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 40731
+        },
+        {
+            "brawler_id": 16000084,
+            "skin_equipped": 29000941,
+            "trophies": 1000,
+            "highest_trophies": 1166,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 11416
+        },
+        {
+            "brawler_id": 16000087,
+            "skin_equipped": 29001024,
+            "trophies": 1000,
+            "highest_trophies": 1208,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 21470
+        },
+        {
+            "brawler_id": 16000089,
+            "skin_equipped": 29001091,
+            "trophies": 1000,
+            "highest_trophies": 1056,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 7477
+        },
+        {
+            "brawler_id": 16000090,
+            "skin_equipped": 29001086,
+            "trophies": 1000,
+            "highest_trophies": 1155,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 8260
+        },
+        {
+            "brawler_id": 16000092,
+            "skin_equipped": 29001095,
+            "trophies": 1000,
+            "highest_trophies": 1124,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 6696
+        },
+        {
+            "brawler_id": 16000093,
+            "skin_equipped": 29001155,
+            "trophies": 1000,
+            "highest_trophies": 1012,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 4468
+        },
+        {
+            "brawler_id": 16000094,
+            "skin_equipped": 29001156,
+            "trophies": 1000,
+            "highest_trophies": 1070,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 0
+        },
+        {
+            "brawler_id": 16000095,
+            "skin_equipped": 29001315,
+            "trophies": 1000,
+            "highest_trophies": 1407,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 0
+        },
+        {
+            "brawler_id": 16000011,
+            "skin_equipped": 29000311,
+            "trophies": 993,
+            "highest_trophies": 1137,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 11622
+        },
+        {
+            "brawler_id": 16000060,
+            "skin_equipped": 29000559,
+            "trophies": 992,
+            "highest_trophies": 1010,
+            "highest_season_tropies": 992,
+            "power_level": 11,
+            "mastery": 3100
+        },
+        {
+            "brawler_id": 16000085,
+            "skin_equipped": 29001188,
+            "trophies": 992,
+            "highest_trophies": 1283,
+            "highest_season_tropies": 992,
+            "power_level": 11,
+            "mastery": 19954
+        },
+        {
+            "brawler_id": 16000013,
+            "skin_equipped": 29000562,
+            "trophies": 978,
+            "highest_trophies": 1446,
+            "highest_season_tropies": 978,
+            "power_level": 11,
+            "mastery": 45777
+        },
+        {
+            "brawler_id": 16000039,
+            "skin_equipped": 29000206,
+            "trophies": 978,
+            "highest_trophies": 1402,
+            "highest_season_tropies": 1000,
+            "power_level": 11,
+            "mastery": 35183
+        },
+        {
+            "brawler_id": 16000096,
+            "skin_equipped": 29001249,
+            "trophies": 302,
+            "highest_trophies": 305,
+            "highest_season_tropies": 305,
+            "power_level": 11,
+            "mastery": 0
+        }
+    ],
+    "battle_card": {
+        "favorite_skin": 29001120,
+        "first_profile_avatar": 28000725,
+        "second_profile_avatar": 28000517,
+        "battle_card_emote": 52001653,
+        "title": 76000071
+    }
+}

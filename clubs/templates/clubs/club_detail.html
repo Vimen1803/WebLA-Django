@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>LA Spain - {{ club.nombre }}</title>
+    <link rel="icon" href="https://pbs.twimg.com/profile_images/1234206824125124610/VVfVRa2r_400x400.jpg">
+    <meta name="viewport" content="width=1024" />
+    {% load humanize %}
+    <style>
+        /* Reutiliza los estilos del body y lluvia de main_page/laclubs */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .drop {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            width: 1px;
+            height: 10px;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Estilos del encabezado */
+        header {
+            background-color: #1c2b3a;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            position: relative;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            box-sizing: border-box;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .header-left span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-center img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-center span {
+            font-size: 2rem;
+            font-weight: bolder;
+            white-space: nowrap; /* Evita que el texto se rompa */
+        }
+
+        .header-link {
+            background-color: #1c2b3a;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            white-space: nowrap; /* Evita que el texto se rompa */
+        }
+
+        .header-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+            white-space: nowrap; /* Evita que los iconos se rompan */
+        }
+
+        header a img {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.3s;
+        }
+
+        header a:hover img {
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.8em;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            height: var(--footer-height);
+            display: flex;
+            flex-direction: column; /* apila los <p> */
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer p {
+            margin: 3px 0; /* reduce el hueco entre las líneas */
+        }
+
+
+        /* Estilos del contenedor principal de detalles del club */
+        .detail-container {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Error */
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ffcccc;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Nueva sección de encabezado para icono, nombre y tag */
+        .club-overview-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: space-between;
+        }
+
+        .club-detail-icon {
+            width: 100px; /* Tamaño más grande para el icono principal */
+            height: 100px;
+            object-fit: contain;
+            border-radius: 20%;
+            border: 4px solid #fdd835; /* Borde amarillo más pronunciado */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            flex-shrink: 0; /* Evita que el icono se encoja */
+        }
+
+        .club-main-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left; /* Alinea el texto a la izquierda */
+            align-items: flex-start;
+        }
+
+        .club-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fdd835;
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .club-tag {
+            font-family: monospace;
+            font-size: 1em; /* Ajustado para ser más pequeño que el nombre */
+            color: #bbb;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 5px; /* Espacio entre el nombre y el tag */
+        }
+
+        .header-trophy-item .trophy-count-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .header-trophy-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-left: auto;
+            margin-right: 10px;
+            gap: 5px;
+            color: #fdd835;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            min-width: 210px; /* Opcional: asegura espacio para los tops */
+        }
+
+        .header-trophy-item .rank-info {
+            display: flex;
+            align-items: end;
+            justify-content: flex-end;
+            font-size: 1.1em;      /* Más grande */
+            color: #ccc;
+            width: 100%;
+            min-height: 32px;
+            text-align: right;     /* Refuerza alineación derecha */
+        }
+
+        .header-trophy-item .rank-info .rank-line {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Añadido */
+            gap: 6px;
+            width: auto; /* Cambiado de 100% a auto */
+        }
+
+        .header-trophy-item .rank-info .rank-line img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+        .header-trophy-item .trophy-count-wrapper img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+
+
+        .header-trophy-item .rank-info .rank-line img {
+            width: 30px; /* Smaller icons for rank */
+            height: 30px;
+            object-fit: contain;
+        }
+
+
+        /* Sección de estadísticas del club (debajo del encabezado) */
+        .club-stats-grid {
+            display: grid;
+            gap: 25px 40px;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .club-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .club-stat-item .icon {
+            width: 28px;
+            height: 28px;
+            filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+        }
+
+        .club-stat-item .label {
+            font-weight: bold;
+            color: #00bcd4;
+        }
+
+        .club-stat-item .value {
+            color: #fff;
+            font-weight: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .trophy-color { color: #fdd835; }
+        .member-color { color: #8bc34a; }
+        .president-color { color: #ffeb3b; }
+        .vp-color { color: #e91e63; }
+        .senior-color { color: #9c27b0; }
+
+
+        /* Descripción del club */
+        .club-description {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            font-style: italic;
+            line-height: 1.6;
+            color: #e0e0e0;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sección de miembros */
+        .member-list-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .member-list-section h2 {
+            text-align: center;
+            color: #00bcd4;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tabla de miembros */
+        .members-table-container {
+            overflow-x: auto;
+        }
+
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .members-table th,
+        .members-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .members-table th {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fdd835;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .members-table th:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .members-table td {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .members-table tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .members-table tr:hover td {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .members-table td img {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Iconos de ordenación */
+        .members-table th.sortable::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 5px;
+            vertical-align: middle;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #fff;
+            transition: transform 0.2s;
+        }
+
+        .members-table th.asc::after {
+            transform: rotate(0deg);
+        }
+
+        .members-table th.desc::after {
+            transform: rotate(180deg);
+        }
+
+        /* Estilos para el mensaje de error/no datos */
+        .message-container {
+            text-align: center;
+            padding: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 600px;
+            color: #ff9800;
+        }
+        .message-container p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Estilos para el resaltado del presidente */
+        .highlight-row {
+            animation: highlightFade 3s ease-out forwards;
+        }
+
+        @keyframes highlightFade {
+            0% {
+                background-color: rgba(255, 215, 0, 0.5); /* Amarillo dorado semi-transparente */
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            }
+            100% {
+                background-color: rgba(0, 0, 0, 0.1); /* Vuelve al color original de la tabla */
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rain"></div>
+
+    <header>
+        <div class="header-left">
+            <a href="{% url 'main_page' %}" class="header-link"> < LA Home</a>
+        </div>
+        <div class="header-left">
+            <a href="{% url 'clubs_list' %}" class="header-link"> < LA Clubs </a>
+        </div>
+        <div class="header-center">
+            <img src="https://images-ext-1.discordapp.net/external/pdpNjlPivAbwCC28y5bG3Q2wFkhL9JStm1JbgkeUBVw/https/cdn.discordapp.com/icons/724202847822151680/ee9681b46db567f2723516d0f42dced8.png?format=webp&quality=lossless&width=160&height=160" alt="LA Spain Logo" />
+            <span>LA Spain</span>
+        </div>
+        <div class="header-right">
+            <a href="https://discord.gg/HA6qRz59rM" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png" alt="Discord" />
+            </a>
+            <a href="https://twitter.com/LASpain_" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter" />
+            </a>
+            <a href="https://tiktok.com/@LASpain_" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok.png" alt="TikTok" />
+            </a>
+        </div>
+    </header>
+
+    {% if error_message %}
+        <div class="error-message">
+            <p>{{ error_message }}</p>
+            <p>Por favor, verifica el tag del jugador o intenta con otro.</p>
+        </div>
+    {% else %}
+        <div class="detail-container">
+            <div class="club-overview-header">
+                <img src="https://raw.githubusercontent.com/DEV-DIBSTER/BrawlCDN/refs/heads/main/assets/Club-Icons/{{ club.club_icon }}.png" alt="Icono de {{ club.nombre }}" class="club-detail-icon" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/DEV-DIBSTER/BrawlCDN/refs/heads/main/assets/Club-Icons/0.png';">
+                <div class="club-main-info">
+                    <h1 class="club-name">{{ club.nombre }}</h1>
+                    <p class="club-tag">{{ club.tag }}</p>
+                </div>
+                <div class="header-trophy-item">
+                    <div class="trophy-count-wrapper">
+                        <img src="https://brawlstats.com/dist/trophy.96ebb0874d0e7e7a7c235bfbb751f2cf.png" alt="Copas" class="icon trophy-color">
+                        <span style="font-style: italic;">{{ club.copas_totales|intcomma }}</span>
+                    </div>
+                    <div class="rank-info">
+                        {% if club.top_global != 0 %}
+                            <div class="rank-line">
+                                <img src="https://cdn-misc.brawlify.com/icon/Ranking.png" alt="Icono de podio" class="icon-img">
+                                {{ club.top_global }} 🌏 {{ club.top_local_ES }}
+                                <img src="https://flagcdn.com/w40/es.png" alt="España" width="15" style="vertical-align:middle;">
+                            </div>
+                        {% elif club.top_global == 0 and club.top_local_ES != 0 %}
+                            <div class="rank-line">
+                                <img src="https://cdn-misc.brawlify.com/icon/Ranking.png" alt="Icono de podio" class="icon-img">
+                                {{ club.top_local_ES }}
+                                <img src="https://flagcdn.com/w40/es.png" alt="España" width="15" style="vertical-align:middle;">
+                            </div>
+                        {% else %}
+                            <div class="rank-line"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="club-stats-grid">
+                <div class="club-stat-item">
+                    <p>
+                        {% if club.type == "open" %}
+                            <img src="https://brawlstats.com/dist/bssb_lock_open.4ca3f106b4a181a75e5a9a8e4e327112.png" alt="Club abierto" class="icon trophy-color">
+                        {% elif club.type == "inviteOnly" %}
+                            <img src="https://brawlstats.com/dist/bssb_lock_invite.06997caff15411f704c194b2df48c5ba.png" alt="Club solo por invitación" class="icon trophy-color">
+                        {% elif club.type == "closed" %}
+                            <img src="https://brawlstats.com/dist/bssb_lock_locked.48c7f4ee8aa03e7c68753d9534247063.png" alt="Club cerrado" class="icon trophy-color">
+                        {% else %}
+                            <p>🔏</p>
+                        {% endif %}
+                    </p>
+                    <span class="label">Minimo Trofeos:</span>
+                    <span class="value">{{ club.requiredTrophies|intcomma }}</span>
+                </div>
+                <div class="club-stat-item" style="margin-left: 50px;">
+                    <img src="https://cdn-misc.brawlify.com/league/League11.png" alt="Media Copas" class="icon trophy-color">
+                    <span class="label">Media Trofeos:</span>
+                    <span class="value">{{ club.media_copas|intcomma }}</span>
+                </div>
+                <div class="club-stat-item" style="margin-top: -20px;">
+                    <img src="https://cdn-misc.brawlify.com/icon/News.png" alt="Miembros" class="icon member-color">
+                    <span class="label">Miembros:</span>
+                    <span class="value">{{ club.n_miembros }}</span>
+                </div>
+                <div class="club-stat-item" style="margin-top: -20px; margin-left: 50px;">
+                    <img src="https://github.com/Brawlify/CDN/blob/master/ranked/tiered/58000021.png?raw=true" alt="Presidente" class="icon president-color">
+                    <span class="label">Presidente:</span>
+                    <span class="value">
+                        {% if club.presidente %}
+                            <a href="#president-row" id="president-link" style="color: inherit; text-decoration: none;">{{ club.presidente }}</a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="club-stat-item">
+                    <img src="https://raw.githubusercontent.com/DEV-DIBSTER/BrawlCDN/refs/heads/main/assets/Gamemode-Icons/25.png" alt="Vicepresidentes" class="icon vp-color">
+                    <span class="label">Vicepresidentes:</span>
+                    <span class="value">{{ club.num_vicepresidents }}</span>
+                </div>
+                <div class="club-stat-item" style="margin-left: 50px;">
+                    <img src="https://raw.githubusercontent.com/DEV-DIBSTER/BrawlCDN/refs/heads/main/assets/Gamemode-Icons/22.png" alt="Veteranos" class="icon senior-color">
+                    <span class="label">Veteranos:</span>
+                    <span class="value">{{ club.num_veterans }}</span>
+                </div>
+
+            </div>
+
+            {% if club.descripcion %}
+                <div class="club-description">
+                    <p><em>"{{ club.descripcion }}"</em></p>
+                </div>
+            {% endif %}
+
+            <div class="member-list-section">
+                {% if club.miembros %}
+                    <div class="members-table-container">
+                        <table class="members-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Icono</th>
+                                    <th>Nombre</th>
+                                    <th class="sortable" data-sort="rol">Rol</th>
+                                    <th class="sortable" data-sort="copas">Copas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for miembro in club.miembros %}
+                                    <tr {% if miembro.rol == "Presidente" %}id="president-row"{% endif %}>
+                                        <td style="font-weight: bold; color: #fdd835 !important;">{{ miembro.top }}.</td>
+                                        <td><img src="https://cdn.brawlify.com/profile-icons/regular/{{ miembro.icono }}.png" alt="Icono de {{ miembro.nombre }}"></td>
+                                        <td><a style="text-decoration: none; color: white;" href="{% url 'member_detail' miembro.tag|cut:'#' %}">{{ miembro.nombre }}</a></td>
+                                        <td style="font-style: italic; color: #ccc !important;">
+                                            {{ miembro.rol }}
+                                        </td>
+                                        <td style="font-weight: bold; color: #fdd835 !important;">
+                                            {{ miembro.copas|intcomma }}
+                                            <img style="margin-left: 5px;" src="https://brawlstats.com/dist/trophy.96ebb0874d0e7e7a7c235bfbb751f2cf.png" alt="Copas" class="icon trophy-color">
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>No hay información de miembros disponible para este club.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <footer>
+        <p>Last Update: {{ last_update.date }}</p>
+        <p>&copy; 2025 LA Spain. Todos los derechos reservados. Desarrollado por Vimen. </p>
+    </footer>
+
+    <script>
+        // JavaScript para el efecto de lluvia
+        const rainContainer = document.querySelector('.rain');
+
+        function createDrop() {
+            const drop = document.createElement('div');
+            drop.classList.add('drop');
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.animationDuration = Math.random() * 2 + 3 + 's';
+            drop.style.opacity = Math.random() * 0.5 + 0.1;
+            rainContainer.appendChild(drop);
+
+            drop.addEventListener('animationend', () => {
+                drop.remove();
+            });
+        }
+
+        setInterval(createDrop, 100);
+
+        // JavaScript para la ordenación de la tabla
+        document.addEventListener('DOMContentLoaded', () => {
+            const table = document.querySelector('.members-table');
+            if (!table) return;
+
+            const headers = table.querySelectorAll('th.sortable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // Mapa de roles para la ordenación
+            const roleOrderForSorting = {
+                'Presidente': 4,
+                'VicePresidente': 3,
+                'Veterano': 2,
+                'Miembro': 1,
+                'Desconocido': 0
+            };
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const column = header.dataset.sort;
+                    const currentDirection = header.dataset.direction || 'asc';
+                    const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+
+                    // Restablecer la dirección de todas las cabeceras
+                    headers.forEach(h => {
+                        delete h.dataset.direction;
+                        h.classList.remove('asc', 'desc');
+                    });
+
+                    // Establecer la nueva dirección y clase para la cabecera actual
+                    header.dataset.direction = newDirection;
+                    header.classList.add(newDirection);
+
+                    // Limpiar cualquier resaltado previo al ordenar
+                            const highlighted = document.querySelector('.highlight-row');
+                            if (highlighted) {
+                                highlighted.classList.remove('highlight-row');
+                            }
+                            sortMembers(column, newDirection);
+                });
+            });
+
+            function sortMembers(column, direction) {
+                rows.sort((a, b) => {
+                    let aValue, bValue;
+                    const roleCellIndex = 3; // Índice de la columna 'Rol'
+
+                    if (column === 'top') {
+                        aValue = parseInt(a.cells[0].textContent);
+                        bValue = parseInt(b.cells[0].textContent);
+                    } else if (column === 'copas') {
+                        // Eliminar comas para parseInt
+                        aValue = parseInt(a.cells[4].textContent.replace(/,/g, ''));
+                        bValue = parseInt(b.cells[4].textContent.replace(/,/g, ''));
+                    } else if (column === 'nombre') {
+                        aValue = a.cells[2].textContent.toLowerCase();
+                        bValue = b.cells[2].textContent.toLowerCase();
+                    } else if (column === 'rol') {
+                        // Usar los roles ya traducidos para la comparación de ordenación
+                        aValue = roleOrderForSorting[a.cells[roleCellIndex].textContent.trim()] || 0;
+                        bValue = roleOrderForSorting[b.cells[roleCellIndex].textContent.trim()] || 0;
+                    }
+
+                    if (aValue < bValue) {
+                        return direction === 'asc' ? -1 : 1;
+                    }
+                    if (aValue > bValue) {
+                        return direction === 'asc' ? 1 : -1;
+                    }
+                    return 0;
+                });
+
+                // Limpiar filas existentes y añadir las ordenadas
+                rows.forEach(row => tbody.appendChild(row));
+            }
+        });
+
+        // JavaScript para el desplazamiento suave y el resaltado del presidente
+        document.addEventListener('DOMContentLoaded', () => {
+            const presidentLink = document.getElementById('president-link');
+            const presidentRow = document.getElementById('president-row');
+
+            if (presidentLink && presidentRow) {
+                presidentLink.addEventListener('click', (event) => {
+                    event.preventDefault(); // Previene el comportamiento de anclaje por defecto
+
+                    // Elimina cualquier resaltado previo
+                    const currentlyHighlighted = document.querySelector('.highlight-row');
+                    if (currentlyHighlighted) {
+                        currentlyHighlighted.classList.remove('highlight-row');
+                    }
+
+                    // Desplazamiento suave
+                    presidentRow.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center' // Centra la fila en la vista
+                    });
+
+                    // Añade la clase de resaltado después de un pequeño retraso para que el scroll comience
+                    setTimeout(() => {
+                        presidentRow.classList.add('highlight-row');
+                    }, 300); // Ajusta este valor si el scroll es muy rápido o lento
+                });
+            }
+        });
+    </script>
+</body>
+</html>
