@@ -1,183 +1,144 @@
-# WebLA
-Página web diseñada con Django para la gestión de clubs de una comunidad de Brawl Stars. Cuenta con vista de miembros y clubs singulares, también externos a la comunidad. Panel de administración para controlar los clubs de la comunidad e incluso una consola para comprobar el funcionamiento de la API.
+# LA Spain - Proyecto Brawl Stars
 
-# LA Spain - Documentación Técnica Completa
+## Descripción General
 
-## Flujo de Navegación y Procesamiento Interno
-
-```mermaid
-flowchart TD
-    %% ----------------------
-    %% Main Page
-    %% ----------------------
-    A[Main Page]:::page -->|Buscar Club| B[Club Detail View]:::page
-    A -->|Buscar Jugador| C[Member Detail View]:::page
-    A --> D[Tops Home]:::page
-    D --> E[Top Players List 10/50/100/250/500]:::page
-    B -->|Ver Miembros| C
-    C -->|Volver| A
-    E -->|Volver| D
-
-    %% ----------------------
-    %% Backend y Llamadas
-    %% ----------------------
-    subgraph API Layer
-        API1[BrawlStarsAPIClient.fetch_rankings(tipo, region)]:::api
-        API2[BrawlStarsAPIClient._make_api_request(url)]:::api
-    end
-
-    subgraph Processor Layer
-        P1[ClubDataProcessor.process_single_club(club_tag, hashed_tag, global_rankings, local_rankings)]:::proc
-        P2[ClubDataProcessor.process_player_profile_data(player_tag)]:::proc
-    end
-
-    subgraph Storage
-        S1[laclubs.json]:::storage
-        S2[members.json]:::storage
-        S3[tops.json]:::storage
-        S4[lageneral.json]:::storage
-        S5[Temp: club.json, profile.json]:::storage
-        S6[last_update.json]:::storage
-    end
-
-    subgraph Admin Panel
-        AP1[Subida de members.json]:::admin
-        AP2[Añadir/Editar/Eliminar Club]:::admin
-        AP3[Recarga de Monitor]:::admin
-        AP4[Consulta API Club/Usuario]:::admin
-    end
-
-    subgraph Views
-        V1[main_page.html]:::view
-        V2[laclubs.html]:::view
-        V3[tops_home.html]:::view
-        V4[top_players_list.html]:::view
-        V5[club_detail.html]:::view
-        V6[member_detail.html]:::view
-        V7[admin_panel.html]:::view
-    end
-
-    %% ----------------------
-    %% Conexiones de Navegación
-    %% ----------------------
-    V1 -->|Request Club/Player| API2
-    V1 -->|Render| V1
-
-    V2 -->|Leer JSON| S1
-    V2 -->|Render| V2
-
-    V3 -->|Leer JSON| S4 & S6
-    V3 -->|Render| V3
-
-    V4 -->|Leer Tops JSON| S3 & S6
-    V4 -->|Render| V4
-
-    V5 -->|Request Club Data| API1 & P1
-    P1 --> S5
-    S5 --> V5
-
-    V6 -->|Request Player Data| API2 & P2
-    P2 --> S5
-    S5 --> V6
-
-    V7 -->|Admin Operations| AP1 & AP2 & AP3 & AP4
-    AP1 --> S2 & S5
-    AP2 --> S1
-    AP3 --> API1 & API2 & P1 & P2
-    AP4 --> API2 & P2
-    V7 -->|Render| V7
-
-    %% ----------------------
-    %% Estilos
-    %% ----------------------
-    classDef page fill:#ffeb99,stroke:#ffcc00,stroke-width:2px,color:#000;
-    classDef view fill:#d0f0fd,stroke:#00aaff,stroke-width:2px,color:#000;
-    classDef api fill:#ffd0d0,stroke:#ff0000,stroke-width:2px,color:#000;
-    classDef proc fill:#d0ffd0,stroke:#00aa00,stroke-width:2px,color:#000;
-    classDef storage fill:#f0d0ff,stroke:#aa00ff,stroke-width:2px,color:#000;
-    classDef admin fill:#ffd0a0,stroke:#ff6600,stroke-width:2px,color:#000;
-```
+**LA Spain** es una plataforma web desarrollada en Django para mostrar información detallada sobre clubes y jugadores de Brawl Stars de la región de España, incluyendo rankings y estadísticas de redes sociales. La aplicación consume datos desde APIs externas y JSON locales.
 
 ---
 
-## Detalle de Clases y Funciones
+## Características Principales
+
+* Visualización de información de clubes (`laclubs.html`).
+* Consulta de detalles de un club o jugador mediante tag.
+* Página de Tops (`tops_home.html`) con botones para ver Top 10, 50, 100, 250 y 500 jugadores.
+* Dashboard de administración para agregar, editar, eliminar clubes y subir archivos `members.json`.
+* Monitoreo y actualización de datos en segundo plano mediante `iniciar_monitor_en_segundo_plano`.
+* Lluvia animada en la interfaz para escritorio (desactivada en móviles).
+
+---
+
+## Navegación y Dependencias entre Vistas
+
+### 1. Main Page (`main_page.html`)
+
+* Puntos de entrada:
+  * Ver lista de clubes → `clubs_view`
+  * Buscar club por tag → `club_detail_view`
+  * Buscar jugador por tag → `member_detail_view`
+  * Tops → `tops_home`
+
+### 2. Clubs View (`laclubs.html`)
+
+* Mostrar lista de clubes y última actualización.
+* Acceso a:
+  * Detalle de club → `club_detail_view`
+
+### 3. Club Detail (`club_detail.html`)
+
+* Procesos:
+  * Llamada API a `BrawlStarsAPIClient` y procesamiento con `ClubDataProcessor`.
+  * Guardado temporal en `data/temp/club.json`.
+* Dependencias:
+  * Retorna error si tag no existe o archivo JSON temporal no encontrado.
+
+### 4. Member Detail (`member_detail.html`)
+
+* Procesos:
+  * Llamada API a `BrawlStarsAPIClient` y procesamiento con `ClubDataProcessor`.
+  * Guardado temporal en `data/temp/profile.json`.
+* Dependencias:
+  * Retorna error si tag no existe o archivo JSON temporal no encontrado.
+
+### 5. Tops Home (`tops_home.html`)
+
+* Muestra estadísticas generales de clubes (`lageneral.json`).
+* Acceso a:
+  * Listado de Top jugadores → `top_players_list`
+
+### 6. Top Players List (`top_players_list.html`)
+
+* Lectura de `tops.json`.
+* Filtrado según límite (`10`, `50`, `100`, `250`, `500`).
+
+### 7. Admin View (`admin_panel.html`)
+
+* Requiere login.
+* Funcionalidades:
+  * Agregar, editar, eliminar clubes.
+  * Recargar datos con `iniciar_monitor_en_segundo_plano`.
+  * Subir archivo `members.json` para actualizar datos de miembros.
+* Validaciones:
+  * Archivo JSON correcto.
+  * Tags únicos.
+
+---
+
+## Procesos Internos y Llamadas a Funciones
 
 ```mermaid
 classDiagram
-    class BrawlStarsAPIClient {
-        +fetch_rankings(type, region)
-        +_make_api_request(url)
-    }
+class MainPage{
+  +render()
+  +buscar_club(tag)
+  +buscar_miembro(tag)
+}
 
-    class ClubDataProcessor {
-        +process_single_club(club_tag, hashed_tag, global_rankings, local_rankings)
-        +process_player_profile_data(player_tag)
-    }
+class ClubsView{
+  +load_clubs()
+  +render()
+}
 
-    class Views {
-        +main_page()
-        +clubs_view()
-        +club_detail_view(club_tag)
-        +tops_home()
-        +top_players_list(limit)
-        +member_detail_view(player_tag)
-        +admin_view()
-        +CustomLogoutView
-    }
+class ClubDetailView{
+  +BrawlStarsAPIClient.fetch_rankings()
+  +ClubDataProcessor.process_single_club()
+  +guardar_json_temp()
+  +render()
+}
 
-    class Storage {
-        +laclubs.json
-        +members.json
-        +tops.json
-        +lageneral.json
-        +temp JSON: club.json, profile.json
-        +last_update.json
-    }
+class MemberDetailView{
+  +ClubDataProcessor.process_player_profile_data()
+  +guardar_json_temp()
+  +render()
+}
 
-    class AdminOperations {
-        +upload_members_file()
-        +add_edit_delete_club()
-        +reload_monitor()
-        +search_club_user()
-    }
+class TopsHome{
+  +leer_json_general()
+  +render()
+}
 
-    %% Relaciones
-    BrawlStarsAPIClient <--> ClubDataProcessor : llamadas API y procesamiento
-    ClubDataProcessor --> Storage : escribe temp JSON
-    Views --> Storage : lee JSON para render
-    Views --> ClubDataProcessor : invoca procesamiento
-    Views --> AdminOperations : ejecuta acciones
-```
+class TopPlayersList{
+  +leer_json_tops()
+  +filtrar_top(limit)
+  +render()
+}
 
----
+class AdminView{
+  +load_clubs()
+  +save_clubs()
+  +iniciar_monitor_en_segundo_plano()
+  +procesar_archivo_members()
+  +render()
+}
 
-## Flujo de Admin Panel Detallado
+MainPage --> ClubsView : "Ir a lista de clubes"
+MainPage --> ClubDetailView : "Buscar club por tag"
+MainPage --> MemberDetailView : "Buscar jugador por tag"
+MainPage --> TopsHome : "Ver Tops"
 
-```mermaid
-flowchart TD
-    Start[Inicio] --> CheckFile{¿Se subió members.json?}:::decision
-    CheckFile -->|Sí| ValidateFile[Validar nombre y JSON]:::proc
-    ValidateFile -->|Válido| SaveFile[Guardar en members.json]:::storage
-    ValidateFile -->|Inválido| ErrorFile[Mostrar error al usuario]:::error
-    CheckFile -->|No| ActionChoice{Acción: add/edit/delete/reload/opcion?}:::decision
-    ActionChoice -->|add| AddClub[Añadir club]:::admin
-    ActionChoice -->|edit| EditClub[Editar club]:::admin
-    ActionChoice -->|delete| DeleteClub[Eliminar club]:::admin
-    ActionChoice -->|reload| Reload[Recargar monitor en background]:::admin
-    ActionChoice -->|opcion| SearchOption{opcion=club o user?}:::decision
-    SearchOption -->|club| SearchClub[Consulta API club]:::api
-    SearchOption -->|user| SearchUser[Consulta API jugador]:::api
-    ActionChoice -->|ninguna| DefaultMsg[Mostrar mensaje genérico]:::info
-    SaveFile & AddClub & EditClub & DeleteClub & Reload & SearchClub & SearchUser & ErrorFile & DefaultMsg --> End[Actualizar sesión y render]:::page
+TopsHome --> TopPlayersList : "Ver Top N jugadores"
 
-    classDef decision fill:#fff3b3,stroke:#ffaa00,stroke-width:2px,color:#000
-    classDef proc fill:#d0ffd0,stroke:#00aa00,stroke-width:2px,color:#000
-    classDef admin fill:#ffd0a0,stroke:#ff6600,stroke-width:2px,color:#000
-    classDef storage fill:#f0d0ff,stroke:#aa00ff,stroke-width:2px,color:#000
-    classDef api fill:#ffd0d0,stroke:#ff0000,stroke-width:2px,color:#000
-    classDef error fill:#ffb3b3,stroke:#ff0000,stroke-width:2px,color:#000
-    classDef info fill:#d0e0ff,stroke:#0066ff,stroke-width:2px,color:#000
-    classDef page fill:#ffeb99,stroke:#ffcc00,stroke-width:2px,color:#000
+ClubsView --> ClubDetailView : "Ver detalle de club"
+
+ClubDetailView --> BrawlStarsAPIClient
+ClubDetailView --> ClubDataProcessor
+
+MemberDetailView --> BrawlStarsAPIClient
+MemberDetailView --> ClubDataProcessor
+
+AdminView --> ClubDataProcessor
+AdminView --> iniciar_monitor_en_segundo_plano
+AdminView --> load_clubs
+AdminView --> save_clubs
 ```
 
 ---
@@ -185,45 +146,77 @@ flowchart TD
 ## Estructura de Archivos
 
 ```
-brawl_job/
-├─ data/
-│  ├─ clubs/
-│  │  ├─ laclubs.json
-│  │  └─ clubs_list.json
-│  ├─ members/
-│  │  ├─ members.json
-│  │  └─ tops.json
-│  └─ social_media/
-│     └─ lageneral.json
-├─ main.py
-├─ data_fetcher/
-│  ├─ api_client.py
-│  ├─ config.py
-│  └─ data_processor.py
-├─ templates/
-│  └─ clubs/
-│     ├─ main_page.html
-│     ├─ laclubs.html
-│     ├─ tops_home.html
-│     ├─ top_players_list.html
-│     ├─ club_detail.html
-│     ├─ member_detail.html
-│     └─ admin_panel.html
-├─ views.py
-└─ urls.py
+
+WebLA
+│
+├── brawl_job
+│   ├── data
+│   │   ├── clubs/
+│   │   │   └── laclubs.json
+│   │   ├── members/
+│   │   │   └── tops.json
+│   │   ├── social_media/
+│   │   │   └── lageneral.json
+│   │   ├── temp/
+│   │   │   ├── club.json
+│   │   │   └── profile.json
+│   │   ├── clubs_list.json
+│   │   └── last_update.json
+│   │
+│   ├── data_fetcher
+│   │   ├── api_client.py
+│   │   ├── config.py
+│   │   ├── data_processor.py
+│   │   ├── models.py
+│   │   ├── utils.py
+│   │
+│   └── main.py
+│
+├── clubs
+│   ├── migrations/
+│   ├── templates
+│   │   └── clubs
+│   │       ├── admin_panel.html
+│   │       ├── club_detail.html
+│   │       ├── laclubs.html
+│   │       ├── login.html
+│   │       ├── main_page.html
+│   │       ├── member_detail.html
+│   │       ├── top_players_list.html
+│   │       └── tops_home.html
+│   │
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── config/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── manage.py
+└── readme.MD
+
 ```
 
 ---
 
-## Funcionalidades Principales
+## Requisitos
 
-- Navegación: Main Page → Club / Player / Tops  
-- Club Detail: Información completa + miembros  
-- Member Detail: Perfil completo de jugador  
-- Tops Home: Rankings Top 10/50/100/250/500  
-- Admin Panel: Gestión de clubes, carga JSON, recarga monitor, consultas API  
-- Manejo de errores y condicionales completo  
-- Animaciones y mejoras visuales para UX
+* Python >= 3.10
+* Django >= 4.2
+* Dependencias adicionales:
+  * requests
+  * humanize (para formateo de números)
+  * json
+  * pathlib
+  * "requirements.txt"
 
 ---
 
@@ -231,18 +224,41 @@ brawl_job/
 
 ```bash
 git clone <repo_url>
-cd la-spain
+cd la_spain
 python -m venv venv
-source venv/bin/activate   # Linux/macOS
-venv\Scripts\activate      # Windows
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
-Acceder en: `http://127.0.0.1:8000/`
+---
+
+## Uso
+
+1. Acceder a la main page (`/`).
+2. Navegar a clubes, tops o buscar jugador/club por tag.
+3. Cuadro de texto con la historia de la organización.
+4. Para administración:
+   * Login como administrador (`/login/`).
+   * Agregar/editar/eliminar clubes.
+   * Comprobar disponibilidad de la API
+   * Recargar datos.
 
 ---
 
-## Licencia
+## Consideraciones
 
-Privado, propiedad de LA Spain © 2025
+* Archivos temporales (`data/temp/*.json`) se generan tras consultar club o miembro.
+* La lluvia animada en la interfaz está desactivada en pantallas ≤1125px.
+* Validaciones estrictas para tags duplicados y archivos JSON inválidos.
+* Última actualización (`last_update.json`) se muestra en todas las páginas.
+
+---
+
+## Autor
+
+* Desarrollador: [Vimen](https://x.com/Viiictooor18)
+* Año: 2025
+* Derechos reservados: © LA Spain
