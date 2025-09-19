@@ -270,7 +270,7 @@ python manage.py runserver
 
 ## Autor
 
-* Desarrollador: [Vimen](https://x.com/Viiictooor18)
-* [Contacto](mailto:victormnjfan@gmail.com)
-* Año: 2025
-* Derechos reservados: © LA Spain
+- **Desarrollador:** [Vimen](https://x.com/Viiictooor18)  
+- **Contacto:** 📧 [victormnjfan@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=victormnjfan@gmail.com)  
+- **Año:** 2025  
+- **Derechos reservados:** © LA Spain
